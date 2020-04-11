@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommender</title>
+    <link rel="shortcut icon" href="images/fav.webp" type="image/x-icon" />
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <div id="modal" class="modal">
+      <div id="addMovie" class="add-movie">
+        <span id="closeBtn" class="closeBtn">&times;</span>
+
+        <div id="movie-rate"></div>
+
+        <form id="star-form" class="rating">
+          <label>
+            <input type="radio" name="stars" value="1" />
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="2" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="3" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="4" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="5" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="6" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="7" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="8" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="9" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="10" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+        </form>
+      </div>
+    </div>
+    <nav id="navbar">
+      <div class="container" style="border-top: 0;">
+        <ul>
+          <li>
+            <a href="#">
+              <img
+                src="images/fav.webp"
+                alt=""
+                href="#"
+                style="width: 60px; height: auto;"
+            /></a>
+          </li>
+          <li class="nav-content">
+            <a href="#" style="padding-right: 5px;">Movies</a>
+          </li>
+          <li class="nav-content"><a href="#">Recommendations</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="showcase"></div>
+
+    <div class="container">
+      <section class="main-body">
+        <h1 style="color: black;">
+          Welcome to Movie Recommender
+        </h1>
+        <h3 style="color: rgb(82, 4, 4);">
+          We keep track of the movies you watch and recommend new ones
+          specifically for your taste! To begin, please find some movies using
+          the search bar below and rate them so we know what you like!
+        </h3>
+      </section>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="input-wrapper">
+          <div class="flex">
+            <input
+              type="text"
+              id="search-box"
+              placeholder="Type to find movies..."
+              class="search"
+            />
+
+            <input
+              id="image"
+              type="image"
+              src="images/search.png"
+              width="37px"
+              height="auto"
+              class="image"
+            />
+          </div>
+          <div id="all-movies" class="dropDown"></div>
+        </div>
+        <h1 style="color: black;">MyMovies</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Movie Name</th>
+              <th>MyRating</th>
+              <th style="text-align: center;">X</th>
+            </tr>
+          </thead>
+          <tbody id="my-movies-list"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="main-body">
+          <button id="get-btn">Get Recommendations</button>
+        </div>
+
+        <div id="rec-container" class="recContainer">
+          <img
+            id="arrow-left"
+            class="arrow arrowLeft"
+            src="images/arrowleft.jpg"
+            width="50px"
+            alt=""
+          />
+          <div id="recommendation" class="showMovies">
+            <img class="recImg" src="images/posters/movie1.jpg" alt="" />
+            <img src="images/posters/movie2.jpg" alt="" />
+            <img src="images/posters/movie3.webp" alt="" />
+            <img src="images/posters/movie4.jpg" alt="" />
+            <img src="images/posters/movie5.jpg" alt="" />
+            <img src="images/posters/movie6.jpg" alt="" />
+            <img src="images/posters/movie7.jpg" alt="" />
+            <img src="images/posters/movie8.webp" alt="" />
+          </div>
+          <img
+            id="arrow-right"
+            class="arrow"
+            src="images/arrowright.jpg"
+            width="50px"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="space" style="margin-bottom: 70px;"></div>
+    </section>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
