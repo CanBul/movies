@@ -207,7 +207,7 @@ class UI {
 
   static removeMovie(el) {
     if (el.classList.contains("delete")) {
-      console.log(el);
+      
       el.parentElement.parentElement.remove();
     }
   }
@@ -297,7 +297,7 @@ function getRecommendationFromServer() {
     sendData.push(temp);
   });
 
-  fetch("http://127.0.0.1:5000", {
+  fetch("http://34.91.133.210/flask", {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",
