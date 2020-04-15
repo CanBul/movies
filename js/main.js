@@ -207,7 +207,6 @@ class UI {
 
   static removeMovie(el) {
     if (el.classList.contains("delete")) {
-      
       el.parentElement.parentElement.remove();
     }
   }
@@ -217,7 +216,7 @@ class UI {
 document.addEventListener("DOMContentLoaded", UI.showMovies);
 
 //---------------------------------------------------
-//Remove Movies when clicked X
+//Remove Movies when clicked X and change rating
 myMovies.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     UI.removeMovie(e.target);
@@ -261,9 +260,11 @@ function search(e) {
 leftArrow.addEventListener("click", () => {
   let recommendations = document.getElementById("recommendation").children;
 
-  for (let index = recommendations.length - 1; index > -1; index--) {
+  for (let index = recommendations.length - 1; index > -1; index -= 2) {
     if (recommendations[index].style.display == "none") {
       recommendations[index].style.display = "";
+      recommendations[index - 1].style.display = "";
+
       break;
     }
   }
@@ -272,9 +273,11 @@ leftArrow.addEventListener("click", () => {
 rightArrow.addEventListener("click", () => {
   let recommendations = document.getElementById("recommendation").children;
 
-  for (let index = 0; index < recommendations.length - 2; index++) {
+  for (let index = 0; index < recommendations.length - 4; index += 2) {
     if (recommendations[index].style.display != "none") {
       recommendations[index].style.display = "none";
+      recommendations[index + 1].style.display = "none";
+
       break;
     }
   }
@@ -306,5 +309,23 @@ function getRecommendationFromServer() {
     body: JSON.stringify(sendData),
   })
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => getPostersAndShow(data));
+}
+
+function getPostersAndShow(data) {
+  let container = document.getElementById("recommendation");
+
+  //get posters and add it to container
+
+  data.forEach((element) => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${element[0]}?api_key=f764605e3fcf27766c7a6bd316f18450&language=en-US`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        var img = new Image();
+        img.src = "http://image.tmdb.org/t/p/w342" + data.poster_path;
+        container.appendChild(img);
+      });
+  });
 }
