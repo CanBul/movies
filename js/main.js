@@ -6,6 +6,8 @@ const myMovies = document.getElementById("my-movies-list");
 const searchImage = document.getElementById("image");
 const leftArrow = document.getElementById("arrow-left");
 const rightArrow = document.getElementById("arrow-right");
+const leftArrow1 = document.getElementById("arrow-left1");
+const rightArrow1 = document.getElementById("arrow-right1");
 const getRecommendation = document.getElementById("get-btn");
 //---------------------------------------------------
 // Get movies from local file
@@ -270,8 +272,33 @@ leftArrow.addEventListener("click", () => {
   }
 });
 
+leftArrow1.addEventListener("click", () => {
+  let recommendations = document.getElementById("recommendation2").children;
+
+  for (let index = recommendations.length - 1; index > -1; index -= 2) {
+    if (recommendations[index].style.display == "none") {
+      recommendations[index].style.display = "";
+      recommendations[index - 1].style.display = "";
+
+      break;
+    }
+  }
+});
+
 rightArrow.addEventListener("click", () => {
   let recommendations = document.getElementById("recommendation").children;
+
+  for (let index = 0; index < recommendations.length - 4; index += 2) {
+    if (recommendations[index].style.display != "none") {
+      recommendations[index].style.display = "none";
+      recommendations[index + 1].style.display = "none";
+
+      break;
+    }
+  }
+});
+rightArrow1.addEventListener("click", () => {
+  let recommendations = document.getElementById("recommendation2").children;
 
   for (let index = 0; index < recommendations.length - 4; index += 2) {
     if (recommendations[index].style.display != "none") {
