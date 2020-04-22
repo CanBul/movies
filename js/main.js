@@ -286,6 +286,8 @@ rightArrow.addEventListener("click", () => {
 // send my movies to server
 getRecommendation.addEventListener("click", () => {
   document.getElementById("rec-container").style.display = "grid";
+  document.getElementById("rec-container1").style.display = "grid";
+
   getRecommendationFromServer();
 });
 
@@ -310,16 +312,48 @@ function getRecommendationFromServer() {
   })
     .then((res) => res.json())
     .then((data) => getPostersAndShow(data));
+
+  //Funk API
+  fetch("http://34.91.133.210/funk", {
+    method: "POST",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(sendData),
+  })
+    .then((res) => res.json())
+    .then((data) => getPostersAndShow2(data));
 }
 
 function getPostersAndShow(data) {
   let container = document.getElementById("recommendation");
+  container.innerHTML = "";
 
   //get posters and add it to container
 
   data.forEach((element) => {
     fetch(
       `https://api.themoviedb.org/3/movie/${element[0]}?api_key=f764605e3fcf27766c7a6bd316f18450&language=en-US`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        var img = new Image();
+        img.src = "http://image.tmdb.org/t/p/w342" + data.poster_path;
+        container.appendChild(img);
+      });
+  });
+}
+//FUNK Function
+function getPostersAndShow2(data) {
+  let container = document.getElementById("recommendation2");
+  container.innerHTML = "";
+
+  //get posters and add it to container
+
+  data.forEach((element) => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${element[2]}?api_key=f764605e3fcf27766c7a6bd316f18450&language=en-US`
     )
       .then((res) => res.json())
       .then((data) => {
