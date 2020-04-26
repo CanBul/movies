@@ -314,6 +314,7 @@ rightArrow1.addEventListener("click", () => {
 getRecommendation.addEventListener("click", () => {
   document.getElementById("rec-container").style.display = "grid";
   document.getElementById("rec-container1").style.display = "grid";
+  document.getElementById("show").style.display = "block";
 
   getRecommendationFromServer();
 });
@@ -371,22 +372,27 @@ function getPostersAndShow(data) {
       });
   });
 }
+
 //FUNK Function
 function getPostersAndShow2(data) {
   let container = document.getElementById("recommendation2");
   container.innerHTML = "";
 
   //get posters and add it to container
-
-  data.forEach((element) => {
+  let counter = 0;
+  for (let index = 0; index < 30; index++) {
     fetch(
-      `https://api.themoviedb.org/3/movie/${element[2]}?api_key=f764605e3fcf27766c7a6bd316f18450&language=en-US`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        var img = new Image();
-        img.src = "http://image.tmdb.org/t/p/w342" + data.poster_path;
-        container.appendChild(img);
-      });
-  });
+      `https://api.themoviedb.org/3/movie/${data[index]}?api_key=f764605e3fcf27766c7a6bd316f18450&language=en-US`
+    ).then((res) => {
+      if (res.status == 404) {
+        res.json().then((a) => console.log(1));
+      } else if (res.status == 200) {
+        res.json().then((data) => {
+          var img = new Image();
+          img.src = "http://image.tmdb.org/t/p/w342" + data.poster_path;
+          container.appendChild(img);
+        });
+      }
+    });
+  }
 }

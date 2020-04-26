@@ -244,6 +244,7 @@ td {
   grid-template-rows: 50% 50%;
   grid-template-columns: 30% 30% 30%;
   grid-auto-flow: column;
+  overflow: hidden;
 
   gap: 25px;
 }
